@@ -4,11 +4,12 @@ services:
     image: ghcr.io/smartstore/smartstore-linux
     container_name: web
     ports:
-      - "80:80"
+      - "88:80"
+    restart: unless-stopped
     depends_on:
       - db
     volumes:
-      - "D:/mount/smtenants/mysql:/app/App_Data/Tenants"
+      - "./Tenants/:/app/App_Data/Tenants:rw"
   db:
     image: mysql
     container_name: mysql
@@ -22,7 +23,7 @@ services:
     expose:
       - '3306'
     volumes:
-      - mysql:/var/lib/mysql
+      - "./mysql/:/var/lib/mysql:rw"
 
 volumes:
   mysql:
